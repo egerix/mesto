@@ -5,11 +5,13 @@
     grid-template-areas:
         "name edit-btn"
         "desc desc";
+    padding-right: 15px;
 }
 
 
 @media screen and (max-width: 780px) {
     .profile__description {
         justify-items: center;
+        padding-right: 0;
     }
 }

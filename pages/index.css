@@ -1,8 +1,12 @@
 @import url(../vendor/normalize.css);
 @import url(../fonts/inter/inter.css);
 
+@import url(../blocks/hover-opacity/_type/hover-opacity_type_btn.css);
+@import url(../blocks/hover-opacity/_type/hover-opacity_type_icon.css);
+@import url(../blocks/ellipsis-overflow/ellipsis-overflow.css);
+
+
 @import url(../blocks/page/page.css);
-@import url(../blocks/hover-opacity/hover-opacity.css);
 @import url(../blocks/page/__container/page__container.css);
 @import url(../blocks/page/__content/page__content.css);
 
@@ -41,5 +45,3 @@
 @import url(../blocks/popup/__title/popup__title.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 
-@import url(../blocks/hover-opacity/_type/hover-opacity_type_btn.css);
-@import url(../blocks/hover-opacity/_type/hover-opacity_type_icon.css);

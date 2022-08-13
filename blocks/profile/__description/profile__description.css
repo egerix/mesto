@@ -1,13 +1,8 @@
 .profile__description {
-    display: grid;
-    align-items: baseline;
-    row-gap: 7px;
-    grid-template-areas:
-        "name edit-btn"
-        "desc desc";
+    display: flex;
+    flex-direction: column;
     padding-right: 15px;
 }
-
 
 @media screen and (max-width: 780px) {
     .profile__description {

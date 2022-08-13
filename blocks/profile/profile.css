@@ -1,0 +1,122 @@
+.profile {
+    display: flex;
+    align-items: center;
+    padding-top: 39px;
+    justify-content: space-between;
+}
+
+.profile__info {
+    display: flex;
+    align-items: center;
+}
+
+.profile__description {
+    display: grid;
+    align-items: baseline;
+    row-gap: 7px;
+    grid-template-areas:
+        "name edit-btn"
+        "desc desc";
+}
+
+.profile__avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-right: 30px;
+}
+
+
+.profile__name {
+    grid-area: name;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 42px;
+    line-height: 48px;
+    margin: 0 18px 0 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.profile__profession {
+    grid-area: desc;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.profile__edit-button {
+    grid-area: edit-btn;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    display: flex;
+    box-sizing: border-box;
+    background: transparent url(../../images/edit.svg) no-repeat 50%;
+    background-size: 10px 10px;
+    border: 1px solid #fff;
+}
+
+.profile__add-button {
+    height: 50px;
+    width: 150px;
+    padding: 0;
+    box-sizing: border-box;
+    background: transparent url(../../images/add.svg) no-repeat 50%;
+    background-size: 22px 22px;
+    border: 2px solid #fff;
+    border-radius: 2px;
+}
+
+@media screen and (max-width: 780px) {
+    .profile {
+        flex-direction: column;
+    }
+
+    .profile__avatar {
+        margin: 0 auto 28px auto;
+    }
+
+    .profile__description {
+        justify-items: center;
+    }
+
+    .profile__add-button {
+        margin-top: 36px;
+        width: 282px;
+    }
+
+    .profile__info {
+        flex-direction: column;
+    }
+
+    .profile__name {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 27px;
+        line-height: 33px;
+        text-align: center;
+    }
+
+    .profile__profession {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+        text-align: center;
+    }
+
+    .profile__edit-button {
+        width: 18px;
+        height: 18px;
+        background-size: 7px 7px;
+    }
+
+    .profile__add-button {
+        background-size: 16px 16px;
+    }
+}

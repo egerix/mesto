@@ -1,0 +1,42 @@
+.place {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.place__photo {
+    flex-grow: 1;
+    object-fit: cover;
+    width: 100%;
+}
+
+.place__description {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #000;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 25px 20px;
+
+}
+
+.place__like-button {
+    min-width: 22px;
+    height: 19px;
+    background: transparent url(../../images/heart.svg) no-repeat 50%;
+    background-size: 22px 19px;
+    border: none;
+}
+
+.place__name {
+    margin: 0;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+}

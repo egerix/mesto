@@ -21,56 +21,64 @@
                     <img src="images/avatar.jpg" alt="аватарка" class="profile__avatar">
                     <div class="profile__description">
                         <div class="profile__name-row">
-                            <h3 class="profile__name ellipsis-overflow">Жак-Ив Кусто</h3>
-                            <button class="profile__edit-button hover-opacity hover-opacity_type_btn"></button>
+                            <h1 class="profile__name ellipsis-overflow">Жак-Ив Кусто</h1>
+                            <button class="profile__edit-button hover-opacity hover-opacity_type_btn"
+                                    type="button"></button>
                         </div>
                         <p class="profile__profession ellipsis-overflow">Исследователь океана</p>
                     </div>
                 </div>
-                <button class="profile__add-button hover-opacity hover-opacity_type_btn" aria-label="редактирования профиля"></button>
+                <button class="profile__add-button hover-opacity hover-opacity_type_btn"
+                        aria-label="редактирования профиля" type="button"></button>
             </section>
             <section class="places section">
                 <ul class="places__list">
                     <li class="places__place place">
                         <img src="images/karachaevsk.jpeg" alt="карачаевск" class="place__photo">
                         <div class="place__description ellipsis-overflow">
-                            <h4 class="place__name">Карачаевск</h4>
-                            <button class="place__like-button hover-opacity hover-opacity_type_icon"></button>
+                            <h2 class="place__name ellipsis-overflow">Карачаевск</h2>
+                            <button class="place__like-button hover-opacity hover-opacity_type_icon"
+                                    type="button"></button>
                         </div>
                     </li>
                     <li class="places__place place">
                         <img src="images/elbrus.jpeg" alt="эльбрус" class="place__photo">
                         <div class="place__description ellipsis-overflow">
-                            <h4 class="place__name">Гора Эльбрус</h4>
-                            <button class="place__like-button hover-opacity hover-opacity_type_icon"></button>
+                            <h2 class="place__name ellipsis-overflow">Гора Эльбрус</h2>
+                            <button class="place__like-button hover-opacity hover-opacity_type_icon"
+                                    type="button"></button>
                         </div>
                     </li>
                     <li class="places__place place">
                         <img src="images/dombai.jpeg" alt="домбай" class="place__photo">
                         <div class="place__description ellipsis-overflow">
-                            <h4 class="place__name">Домбай</h4>
-                            <button class="place__like-button hover-opacity hover-opacity_type_icon"></button>
+                            <h2 class="place__name ellipsis-overflow">Домбай</h2>
+                            <button class="place__like-button hover-opacity hover-opacity_type_icon"
+                                    type="button"></button>
                         </div>
                     </li>
                     <li class="places__place place">
                         <img src="images/elbrus.jpeg" alt="эльбрус" class="place__photo">
                         <div class="place__description ellipsis-overflow">
-                            <h4 class="place__name">Гора Эльбрус</h4>
-                            <button class="place__like-button hover-opacity hover-opacity_type_icon"></button>
+                            <h2 class="place__name ellipsis-overflow">Гора Эльбрус</h2>
+                            <button class="place__like-button hover-opacity hover-opacity_type_icon"
+                                    type="button"></button>
                         </div>
                     </li>
                     <li class="places__place place">
                         <img src="images/dombai.jpeg" alt="домбай" class="place__photo">
                         <div class="place__description ellipsis-overflow">
-                            <h4 class="place__name">Домбай</h4>
-                            <button class="place__like-button hover-opacity hover-opacity_type_icon"></button>
+                            <h2 class="place__name ellipsis-overflow">Домбай</h2>
+                            <button class="place__like-button hover-opacity hover-opacity_type_icon"
+                                    type="button"></button>
                         </div>
                     </li>
                     <li class="places__place place">
                         <img src="images/karachaevsk.jpeg" alt="карачаевск" class="place__photo">
                         <div class="place__description ellipsis-overflow">
-                            <h4 class="place__name">Карачаевск</h4>
-                            <button class="place__like-button hover-opacity hover-opacity_type_icon"></button>
+                            <h2 class="place__name ellipsis-overflow">Карачаевск</h2>
+                            <button class="place__like-button hover-opacity hover-opacity_type_icon"
+                                    type="button"></button>
                         </div>
                     </li>
                 </ul>
@@ -86,18 +94,19 @@
     <div class="popup">
         <div class="popup__container">
             <h2 class="popup__title">Редактировать профиль</h2>
-            <form class="popup__form">
+            <form class="popup__form" name="editProfileForm">
                 <label class="popup__field">
-                    <input class="popup__input" placeholder="Имя" id="nameInput">
+                    <input class="popup__input" name="editNameField" placeholder="Имя" id="nameInput">
                 </label>
                 <label class="popup__field">
-                    <input class="popup__input" placeholder="О себе" id="professionInput">
+                    <input class="popup__input" name="editProfessionField" placeholder="О себе" id="professionInput">
                 </label>
-                <button class="popup__submit popup__submit_disabled" type="submit" aria-label="сохранить">
+                <button class="popup__submit" type="submit" aria-label="сохранить">
                     Сохранить
                 </button>
             </form>
-            <button class="popup__close hover-opacity hover-opacity_type_btn" type="button" aria-label="закрыть"></button>
+            <button class="popup__close hover-opacity hover-opacity_type_btn" type="button"
+                    aria-label="закрыть"></button>
         </div>
     </div>
 </div>

@@ -1,0 +1,7 @@
+.popup__container_size_full {
+    max-height: 75vh;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+}

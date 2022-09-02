@@ -1,7 +1,0 @@
-.place__like-button {
-    min-width: 22px;
-    height: 19px;
-    background: transparent url(../../../images/heart.svg) no-repeat 50%;
-    background-size: 22px 19px;
-    border: none;
-}

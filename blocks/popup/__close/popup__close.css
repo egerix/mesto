@@ -8,6 +8,7 @@
     background: transparent url(../../../images/close.svg) no-repeat 50%;
     background-size: 32px 32px;
     border: 0;
+    cursor: pointer;
 }
 
 

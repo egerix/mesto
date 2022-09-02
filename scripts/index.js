@@ -19,36 +19,13 @@ const placeTemplate = document.querySelector('#placeTemplate');
 
 const editProfileBtn = document.querySelector('.profile__edit-button');
 const addPlaceBtn = document.querySelector('.profile__add-button');
-const closePopupBtns = document.querySelectorAll('.popup__close');
+const closePersonPopupBtn = personPopup.querySelector('.popup__close');
+const closeAddPlacePopupBtn = addPlacePopup.querySelector('.popup__close');
+const closeFullImagePopupBtn = fullImagePopup.querySelector('.popup__close');
 
 const placesList = document.querySelector('.places__list');
 
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
+initialCards.reverse().forEach((cardData) => addPlace({title: cardData.name, imgUrl: cardData.link}))
 
 function getPlaceElement({title, imgUrl}) {
     const template = placeTemplate.content.cloneNode(true);
@@ -61,53 +38,57 @@ function getPlaceElement({title, imgUrl}) {
     placeImage.src = imgUrl;
     placeImage.alt = title;
 
-    likeBtn.addEventListener('click', (e) => {
-        e.target.classList.toggle('like-button__state_liked');
-    });
-    placeElement.addEventListener('click', (e) => {
-        popupImage.src = imgUrl;
-        popupBottomLabel.textContent = title;
-        openPopup(fullImagePopup);
-    });
+    likeBtn.addEventListener('click', () => handleLikeBtnClick(likeBtn));
+    placeElement.addEventListener('click', () => handleImageClick({imgUrl, title}));
     deleteBtn.addEventListener('click', () => placeElement.remove());
     return placeElement;
 }
+
+function handleLikeBtnClick(element) {
+    element.classList.toggle('like-button__state_liked');
+}
+
+function handleImageClick({imgUrl, title}) {
+    popupImage.src = imgUrl;
+    popupImage.alt = title;
+    popupBottomLabel.textContent = title;
+    openPopup(fullImagePopup);
+}
+
 
 function addPlace({title, imgUrl}) {
     placesList.prepend(getPlaceElement({title, imgUrl}))
 }
 
-initialCards.reverse().forEach((it) => addPlace({title: it.name, imgUrl: it.link}))
-
 function openPopup(popup) {
     popup.classList.add('popup_opened');
 }
 
-function closePopup() {
-    document.querySelector('.popup_opened').classList.remove('popup_opened');
+function closePopup(popup) {
+    popup.classList.remove('popup_opened');
 }
 
-closePopupBtns.forEach((btn) => btn.addEventListener('click', closePopup));
-
 // Place popup
-function submitAddPlace(e) {
+function handleAddPlaceFormSubmit(e) {
     e.preventDefault();
     addPlace({
         title: placeNameInput.value,
         imgUrl: placeLinkInput.value
     })
-    closePopup()
+    placeLinkInput.value = '';
+    placeNameInput.value = '';
+    closePopup(addPlacePopup)
 }
 
-addPlaceForm.addEventListener('submit', submitAddPlace);
+addPlaceForm.addEventListener('submit', handleAddPlaceFormSubmit);
 addPlaceBtn.addEventListener('click', () => openPopup(addPlacePopup));
 
 // Person popup
-function submitProfile(e) {
+function handleProfileFormSubmit(e) {
     e.preventDefault();
     profileName.textContent = personNameInput.value;
     profileProfession.textContent = personProfessionInput.value;
-    closePopup();
+    closePopup(personPopup);
 }
 
 editProfileBtn.addEventListener('click', () => {
@@ -115,4 +96,8 @@ editProfileBtn.addEventListener('click', () => {
     personProfessionInput.value = profileProfession.textContent;
     openPopup(personPopup)
 });
-personForm.addEventListener('submit', submitProfile);
+personForm.addEventListener('submit', handleProfileFormSubmit);
+
+closePersonPopupBtn.addEventListener('click', () => closePopup(personPopup));
+closeAddPlacePopupBtn.addEventListener('click', () => closePopup(addPlacePopup));
+closeFullImagePopupBtn.addEventListener('click', () => closePopup(fullImagePopup));

@@ -10,4 +10,5 @@
     transform: translate(0%, 25%);
     position: absolute;
     cursor: pointer;
+    z-index: 1;
 }

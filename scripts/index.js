@@ -39,7 +39,7 @@ function getPlaceElement({title, imgUrl}) {
     placeImage.alt = title;
 
     likeBtn.addEventListener('click', () => handleLikeBtnClick(likeBtn));
-    placeElement.addEventListener('click', () => handleImageClick({imgUrl, title}));
+    placeImage.addEventListener('click', () => handleImageClick({imgUrl, title}));
     deleteBtn.addEventListener('click', () => placeElement.remove());
     return placeElement;
 }
@@ -75,8 +75,7 @@ function handleAddPlaceFormSubmit(e) {
         title: placeNameInput.value,
         imgUrl: placeLinkInput.value
     })
-    placeLinkInput.value = '';
-    placeNameInput.value = '';
+    addPlaceForm.reset();
     closePopup(addPlacePopup)
 }
 

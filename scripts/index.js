@@ -27,6 +27,30 @@ const placesList = document.querySelector('.places__list');
 
 initialCards.reverse().forEach((cardData) => addPlace({title: cardData.name, imgUrl: cardData.link}))
 
+function handlePopupClick({evt, popup}) {
+    if (evt.target.closest(".popup__container"))
+        evt.stopPropagation();
+    else {
+        closePopup(popup)
+    }
+}
+
+function handleEscKeydown({evt, popup}) {
+    if (evt.keyCode === 27) {
+        closePopup(popup)
+    }
+}
+
+function openPopup(popup) {
+    popup.classList.add('popup_opened');
+    document.addEventListener('keydown', (evt) => handleEscKeydown({evt, popup}));
+}
+
+function closePopup(popup) {
+    popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', (evt) => handleEscKeydown({evt, popup}));
+}
+
 function getPlaceElement({title, imgUrl}) {
     const template = placeTemplate.content.cloneNode(true);
     const placeElement = template.querySelector('.place');
@@ -58,14 +82,6 @@ function handleImageClick({imgUrl, title}) {
 
 function addPlace({title, imgUrl}) {
     placesList.prepend(getPlaceElement({title, imgUrl}))
-}
-
-function openPopup(popup) {
-    popup.classList.add('popup_opened');
-}
-
-function closePopup(popup) {
-    popup.classList.remove('popup_opened');
 }
 
 // Place popup
@@ -101,24 +117,6 @@ closePersonPopupBtn.addEventListener('click', () => closePopup(personPopup));
 closeAddPlacePopupBtn.addEventListener('click', () => closePopup(addPlacePopup));
 closeFullImagePopupBtn.addEventListener('click', () => closePopup(fullImagePopup));
 
-function handlePopupClick(evt, popup) {
-    if (evt.target.closest(".popup__container"))
-        evt.stopPropagation();
-    else {
-        closePopup(popup)
-    }
-}
-
-function handlePopupKeyDown(evt) {
-    if (evt.keyCode === 27) {
-        closePopup(personPopup)
-        closePopup(addPlacePopup)
-        closePopup(fullImagePopup)
-    }
-}
-
-personPopup.addEventListener('click', (evt) => handlePopupClick(evt, personPopup));
-addPlacePopup.addEventListener('click', (evt) => handlePopupClick(evt, addPlacePopup));
-fullImagePopup.addEventListener('click', (evt) => handlePopupClick(evt, fullImagePopup));
-
-document.addEventListener('keydown', handlePopupKeyDown);
+personPopup.addEventListener('click', (evt) => handlePopupClick({evt, popup: personPopup}));
+addPlacePopup.addEventListener('click', (evt) => handlePopupClick({evt, popup: addPlacePopup}));
+fullImagePopup.addEventListener('click', (evt) => handlePopupClick({evt, popup: fullImagePopup}));

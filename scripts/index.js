@@ -1,21 +1,21 @@
-const personPopup = document.querySelector('#personPopup');
-const addPlacePopup = document.querySelector('#addPlacePopup');
-const fullImagePopup = document.querySelector('#fullImagePopup');
+const personPopup = document.querySelector('#person-popup');
+const addPlacePopup = document.querySelector('#add-place-popup');
+const fullImagePopup = document.querySelector('#full-image-popup');
 
-const personForm = personPopup.querySelector('#personForm');
-const personNameInput = personPopup.querySelector('#personNameInput');
-const personProfessionInput = personPopup.querySelector('#personProfessionInput');
+const personForm = personPopup.querySelector('#person-form');
+const personNameInput = personPopup.querySelector('#username');
+const personProfessionInput = personPopup.querySelector('#profession');
 const profileName = document.querySelector('.profile__name');
 const profileProfession = document.querySelector('.profile__profession');
 
-const addPlaceForm = addPlacePopup.querySelector('#addPlaceForm');
-const placeNameInput = addPlacePopup.querySelector('#placeNameInput');
-const placeLinkInput = addPlacePopup.querySelector('#placeLinkInput');
+const addPlaceForm = addPlacePopup.querySelector('#add-place-form');
+const placeNameInput = addPlacePopup.querySelector('#place-name');
+const placeLinkInput = addPlacePopup.querySelector('#place-link');
 
 const popupImage = fullImagePopup.querySelector('.popup__image');
 const popupBottomLabel = fullImagePopup.querySelector('.popup__bottom-label');
 
-const placeTemplate = document.querySelector('#placeTemplate');
+const placeTemplate = document.querySelector('#place-template');
 
 const editProfileBtn = document.querySelector('.profile__edit-button');
 const addPlaceBtn = document.querySelector('.profile__add-button');
@@ -100,3 +100,25 @@ personForm.addEventListener('submit', handleProfileFormSubmit);
 closePersonPopupBtn.addEventListener('click', () => closePopup(personPopup));
 closeAddPlacePopupBtn.addEventListener('click', () => closePopup(addPlacePopup));
 closeFullImagePopupBtn.addEventListener('click', () => closePopup(fullImagePopup));
+
+function handlePopupClick(evt, popup) {
+    if (evt.target.closest(".popup__container"))
+        evt.stopPropagation();
+    else {
+        closePopup(popup)
+    }
+}
+
+function handlePopupKeyDown(evt) {
+    if (evt.keyCode === 27) {
+        closePopup(personPopup)
+        closePopup(addPlacePopup)
+        closePopup(fullImagePopup)
+    }
+}
+
+personPopup.addEventListener('click', (evt) => handlePopupClick(evt, personPopup));
+addPlacePopup.addEventListener('click', (evt) => handlePopupClick(evt, addPlacePopup));
+fullImagePopup.addEventListener('click', (evt) => handlePopupClick(evt, fullImagePopup));
+
+document.addEventListener('keydown', handlePopupKeyDown);

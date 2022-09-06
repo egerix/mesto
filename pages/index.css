@@ -45,10 +45,14 @@
 @import url(../blocks/popup/__close/popup__close.css);
 @import url(../blocks/popup/__field/popup__field.css);
 @import url(../blocks/popup/__input/popup__input.css);
+@import url(../blocks/popup/__input/_invalid/popup__input_invalid.css);
 @import url(../blocks/popup/__submit/popup__submit.css);
 @import url(../blocks/popup/__title/popup__title.css);
 @import url(../blocks/popup/__image/pipup__image.css);
 @import url(../blocks/popup/__bottom-label/popup__bottom-label.css);
+@import url(../blocks/popup/__input-error/popup__input-error.css);
+@import url(../blocks/popup/__input-error/_visible/popup__input-error_visible.css);
+@import url(../blocks/popup/__submit/_inactive/popup__submit_inactive.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 
 @import url(../blocks/like-button/like-button.css);

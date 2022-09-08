@@ -32,7 +32,7 @@ function disableSubmitBtn(submitBtn) {
 }
 
 function handlePopupClick({evt, popup}) {
-    if (evt.target.closest(popupOpenedSelector))
+    if (evt.target.closest(".popup__container"))
         evt.stopPropagation();
     else {
         closePopup(popup)

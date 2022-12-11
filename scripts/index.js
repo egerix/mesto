@@ -1,3 +1,5 @@
+import Card from './Card.js'
+import FormValidator from './FormValidator.js'
 
 const popupPerson = document.querySelector('#person-popup');
 const popupAddPlace = document.querySelector('#add-place-popup');
@@ -12,7 +14,6 @@ const placeNameInput = popupAddPlace.querySelector('#place-name');
 const placeLinkInput = popupAddPlace.querySelector('#place-link');
 const popupImage = popupFullImage.querySelector('.popup__image');
 const popupBottomLabel = popupFullImage.querySelector('.popup__bottom-label');
-const placeTemplate = document.querySelector('#place-template');
 const popupEditProfileBtn = document.querySelector('.profile__edit-button');
 const popupAddPlaceBtn = document.querySelector('.profile__add-button');
 const popupClosePersonBtn = popupPerson.querySelector('.popup__close');
@@ -23,6 +24,16 @@ const formAddPlaceSubmitBtn = document.querySelector('#submit-add-place');
 const popupOpenedSelector = '.popup_opened';
 const submitInactiveClass = 'popup__submit_inactive';
 const buttonEscKeycode = 27;
+
+const validationConfig = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    inputInvalidClass: 'popup__input_invalid',
+    submitButtonSelector: '.popup__submit',
+    submitInactiveClass: 'popup__submit_inactive',
+    inputErrorSelector: '.popup__input-error',
+    inputErrorVisibleClass: 'popup__input-error_visible',
+}
 
 initialCards.reverse().forEach((cardData) => addPlace({title: cardData.name, imgUrl: cardData.link}))
 
@@ -56,40 +67,27 @@ function closePopup(popup) {
     document.removeEventListener('keydown', handleEscKeydown);
 }
 
-function getPlaceElement({title, imgUrl}) {
-    const template = placeTemplate.content.cloneNode(true);
-    const placeElement = template.querySelector('.place');
-    const placeImage = placeElement.querySelector('.place__photo');
-    const likeBtn = placeElement.querySelector('.place__like-button');
-    const deleteBtn = placeElement.querySelector('.place__delete-button');
-
-    placeElement.querySelector('.place__name').textContent = title;
-    placeImage.src = imgUrl;
-    placeImage.alt = title;
-
-    likeBtn.addEventListener('click', () => handleLikeBtnClick(likeBtn));
-    placeImage.addEventListener('click', () => handleImageClick({imgUrl, title}));
-    deleteBtn.addEventListener('click', () => placeElement.remove());
-    return placeElement;
-}
-
-function handleLikeBtnClick(element) {
-    element.classList.toggle('like-button__state_liked');
-}
-
-function handleImageClick({imgUrl, title}) {
+function handleCardClick({imgUrl, title}) {
     popupImage.src = imgUrl;
     popupImage.alt = title;
     popupBottomLabel.textContent = title;
     openPopup(popupFullImage);
 }
 
-
 function addPlace({title, imgUrl}) {
-    placesList.prepend(getPlaceElement({title, imgUrl}))
+    const card = new Card({
+        title,
+        link: imgUrl,
+        templateSelector: '#place-template',
+        handleCardClick: handleCardClick
+    }).createCard()
+    placesList.prepend(card)
 }
 
 // Place popup
+const addPlaceFormValidator = new FormValidator({config: validationConfig, targetForm: formAddPlace});
+addPlaceFormValidator.enableValidation();
+
 function handleAddPlaceFormSubmit(e) {
     e.preventDefault();
     addPlace({
@@ -101,11 +99,17 @@ function handleAddPlaceFormSubmit(e) {
     disableSubmitBtn(formAddPlaceSubmitBtn);
 }
 
-
 formAddPlace.addEventListener('submit', handleAddPlaceFormSubmit);
-popupAddPlaceBtn.addEventListener('click', () => openPopup(popupAddPlace));
+popupAddPlaceBtn.addEventListener('click', () => {
+    addPlaceFormValidator.resetValidationState();
+    formAddPlace.reset();
+    openPopup(popupAddPlace);
+});
 
 // Person popup
+const personFormValidator = new FormValidator({config: validationConfig, targetForm: personForm});
+personFormValidator.enableValidation();
+
 function handleProfileFormSubmit(e) {
     e.preventDefault();
     profileName.textContent = personNameInput.value;
@@ -116,6 +120,7 @@ function handleProfileFormSubmit(e) {
 popupEditProfileBtn.addEventListener('click', () => {
     personNameInput.value = profileName.textContent;
     personProfessionInput.value = profileProfession.textContent;
+    personFormValidator.resetValidationState();
     openPopup(popupPerson)
 });
 personForm.addEventListener('submit', handleProfileFormSubmit);

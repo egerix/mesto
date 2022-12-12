@@ -16,13 +16,9 @@ const popupImage = popupFullImage.querySelector('.popup__image');
 const popupBottomLabel = popupFullImage.querySelector('.popup__bottom-label');
 const popupEditProfileBtn = document.querySelector('.profile__edit-button');
 const popupAddPlaceBtn = document.querySelector('.profile__add-button');
-const popupClosePersonBtn = popupPerson.querySelector('.popup__close');
-const popupCloseAddPlaceBtn = popupAddPlace.querySelector('.popup__close');
-const popupCloseFullImageBtn = popupFullImage.querySelector('.popup__close');
 const placesList = document.querySelector('.places__list');
-const formAddPlaceSubmitBtn = document.querySelector('#submit-add-place');
+const popups = document.querySelectorAll('.popup')
 const popupOpenedSelector = '.popup_opened';
-const submitInactiveClass = 'popup__submit_inactive';
 const buttonEscKeycode = 27;
 
 const validationConfig = {
@@ -36,14 +32,6 @@ const validationConfig = {
 }
 
 initialCards.reverse().forEach((cardData) => addPlace({title: cardData.name, imgUrl: cardData.link}))
-
-function handlePopupClick({evt, popup}) {
-    if (evt.target.closest(".popup__container"))
-        evt.stopPropagation();
-    else {
-        closePopup(popup)
-    }
-}
 
 function handleEscKeydown(evt) {
     if (evt.keyCode === buttonEscKeycode) {
@@ -123,10 +111,13 @@ popupEditProfileBtn.addEventListener('click', () => {
 });
 personForm.addEventListener('submit', handleProfileFormSubmit);
 
-popupClosePersonBtn.addEventListener('click', () => closePopup(popupPerson));
-popupCloseAddPlaceBtn.addEventListener('click', () => closePopup(popupAddPlace));
-popupCloseFullImageBtn.addEventListener('click', () => closePopup(popupFullImage));
-
-popupPerson.addEventListener('click', (evt) => handlePopupClick({evt, popup: popupPerson}));
-popupAddPlace.addEventListener('click', (evt) => handlePopupClick({evt, popup: popupAddPlace}));
-popupFullImage.addEventListener('click', (evt) => handlePopupClick({evt, popup: popupFullImage}));
+popups.forEach((popup) => {
+    popup.addEventListener('mousedown', (evt) => {
+        if (evt.target.classList.contains('popup_opened')) {
+            closePopup(popup)
+        }
+        if (evt.target.classList.contains('popup__close')) {
+            closePopup(popup)
+        }
+    })
+});

@@ -3,10 +3,16 @@ export default class FormValidator {
         this._config = config;
         this._targetForm = targetForm;
         this._inputList = Array.from(this._targetForm.querySelectorAll(this._config.inputSelector));
+        this._errorElementsMap = new Map(
+            this._inputList.map((input) =>
+                [input.id, this._targetForm.querySelector(`#${input.id}-error`)]
+            )
+        );
+        this._submitBtnElement = this._targetForm.querySelector(this._config.submitButtonSelector);
     }
 
     _showInputError(inputElement) {
-        const errorElement = this._targetForm.querySelector(`#${inputElement.id}-error`);
+        const errorElement = this._errorElementsMap.get(inputElement.id);
         inputElement.classList.add(this._config.inputInvalidClass);
         errorElement.classList.add(this._config.inputErrorVisibleClass);
         if (inputElement.validity.valueMissing) {
@@ -19,7 +25,7 @@ export default class FormValidator {
     }
 
     _hideInputError(inputElement) {
-        const errorElement = this._targetForm.querySelector(`#${inputElement.id}-error`);
+        const errorElement = this._errorElementsMap.get(inputElement.id);
         inputElement.classList.remove(this._config.inputInvalidClass);
         errorElement.classList.remove(this._config.inputErrorVisibleClass);
         errorElement.textContent = '';
@@ -34,14 +40,13 @@ export default class FormValidator {
     }
 
     _setButtonState() {
-        const submitBtnElement = this._targetForm.querySelector(this._config.submitButtonSelector);
         const hasErrors = this._inputList.some((inputElement) => !inputElement.validity.valid)
         if (hasErrors) {
-            submitBtnElement.classList.add(this._config.submitInactiveClass);
-            submitBtnElement.setAttribute("disabled", "");
+            this._submitBtnElement.classList.add(this._config.submitInactiveClass);
+            this._submitBtnElement.setAttribute("disabled", "");
         } else {
-            submitBtnElement.classList.remove(this._config.submitInactiveClass);
-            submitBtnElement.removeAttribute("disabled");
+            this._submitBtnElement.classList.remove(this._config.submitInactiveClass);
+            this._submitBtnElement.removeAttribute("disabled");
         }
     }
 

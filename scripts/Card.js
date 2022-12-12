@@ -37,12 +37,23 @@ export default class Card {
     }
 
     _setEventListeners() {
-        this._likeBtnElement.addEventListener('click', () => {
-            this._likeBtnElement.classList.toggle('like-button__state_liked')
-        });
-        this._deleteBtnElement.addEventListener('click', () => {
-            this._cardElement.remove()
-        });
-        this._imageElement.addEventListener('click', () => this._handleCardClick({title: this._title, imgUrl: this._link}));
+        this._likeBtnElement.addEventListener('click', this._toggleLike);
+        this._deleteBtnElement.addEventListener('click', this._deleteCard);
+        this._imageElement.addEventListener('click', this._handleImageClick);
+    }
+
+    _toggleLike = () => {
+        this._likeBtnElement.classList.toggle('like-button__state_liked')
+    }
+
+    _deleteCard = () => {
+        this._cardElement.remove()
+    }
+
+    _handleImageClick = () => {
+        this._handleCardClick({
+            title: this._title,
+            imgUrl: this._link
+        })
     }
 }

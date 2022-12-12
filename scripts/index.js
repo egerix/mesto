@@ -37,11 +37,6 @@ const validationConfig = {
 
 initialCards.reverse().forEach((cardData) => addPlace({title: cardData.name, imgUrl: cardData.link}))
 
-function disableSubmitBtn(submitBtn) {
-    submitBtn.classList.add(submitInactiveClass);
-    submitBtn.setAttribute("disabled", "");
-}
-
 function handlePopupClick({evt, popup}) {
     if (evt.target.closest(".popup__container"))
         evt.stopPropagation();
@@ -74,14 +69,18 @@ function handleCardClick({imgUrl, title}) {
     openPopup(popupFullImage);
 }
 
-function addPlace({title, imgUrl}) {
-    const card = new Card({
+function createCard({title, imgUrl}) {
+    return new Card({
         title,
         link: imgUrl,
         templateSelector: '#place-template',
         handleCardClick: handleCardClick
-    }).createCard()
-    placesList.prepend(card)
+    }).createCard();
+}
+
+function addPlace({title, imgUrl}) {
+    const cardElement = createCard({title, imgUrl});
+    placesList.prepend(cardElement)
 }
 
 // Place popup
@@ -96,7 +95,6 @@ function handleAddPlaceFormSubmit(e) {
     })
     formAddPlace.reset();
     closePopup(popupAddPlace);
-    disableSubmitBtn(formAddPlaceSubmitBtn);
 }
 
 formAddPlace.addEventListener('submit', handleAddPlaceFormSubmit);

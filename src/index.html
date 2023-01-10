@@ -5,20 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mesto</title>
-    <link rel="stylesheet" type="text/css" href="pages/index.css"/>
 </head>
 
 <body>
 <div class="page">
     <div class="page__container">
         <header class="page__header header section">
-            <img class="header__logo" src="images/logo.svg" alt="лого">
+            <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="лого">
         </header>
 
         <main class="page__content content">
             <section class="profile section">
                 <div class="profile__info">
-                    <img src="images/avatar.jpg" alt="аватарка" class="profile__avatar">
+                    <img src="<%=require('./images/avatar.jpg')%>" alt="аватарка" class="profile__avatar">
                     <div class="profile__description">
                         <div class="profile__name-row">
                             <h1 class="profile__name ellipsis-overflow">Жак-Ив Кусто</h1>
@@ -111,9 +110,5 @@
         </li>
     </template>
 </div>
-<script src="./scripts/initialCards.js"></script>
-<script src="./scripts/Card.js" type="module"></script>
-<script src="scripts/FormValidator.js" type="module"></script>
-<script src="./scripts/index.js" type="module"></script>
 </body>
 </html>

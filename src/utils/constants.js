@@ -24,3 +24,27 @@ const initialCards = [
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ];
+
+const elements = {
+    personForm: document.querySelector('#person-form'),
+    formAddPlace: document.querySelector('#add-place-form'),
+    popupEditProfileBtn: document.querySelector('.profile__edit-button'),
+    popupAddPlaceBtn: document.querySelector('.profile__add-button'),
+}
+
+const selectors = {
+    popupPersonSelector: '#person-popup',
+    popupAddPlaceSelector: '#add-place-popup',
+    profileNameSelector: '.profile__name',
+    popupImageSelector: '#full-image-popup',
+    placeTemplateSelector: '#place-template',
+    profileProfessionSelector: '.profile__profession',
+    placesListSelector: '.places__list',
+}
+
+
+export {
+    initialCards,
+    elements,
+    selectors,
+}

@@ -10,18 +10,25 @@ import {
     initialCards, elements, selectors
 } from "../utils/constants";
 
-const addPlaceFormValidator = new FormValidator({config: validationConfig, targetForm: elements.formAddPlace});
-addPlaceFormValidator.enableValidation();
+const formValidators = {}
 
-const personFormValidator = new FormValidator({config: validationConfig, targetForm: elements.personForm});
-personFormValidator.enableValidation();
+const enableValidation = (config) => {
+    const formList = Array.from(document.querySelectorAll(config.formSelector))
+    formList.forEach((formElement) => {
+        const validator = new FormValidator({targetForm: formElement, config})
+        const formName = formElement.getAttribute('name')
+        formValidators[formName] = validator;
+        validator.enableValidation();
+    });
+};
+enableValidation(validationConfig);
 
 const popupWithImage = new PopupWithImage(selectors.popupImageSelector);
 const places = new Section(
     {
         items: initialCards,
-        renderer: function (cardData) {
-            this.addItem({
+        renderer: (cardData) => {
+            places.addItem({
                 item: createCard({title: cardData.name, imgUrl: cardData.link}),
                 isAppend: false
             });
@@ -35,33 +42,32 @@ const userInfo = new UserInfo({
 });
 const profilePopup = new PopupWithForm({
     popupSelector: selectors.popupPersonSelector,
-    handleFormSubmit: function (evt, value) {
+    handleFormSubmit: (evt, value) => {
         evt.preventDefault();
         userInfo.setUserInfo(value);
-        this.close();
-        personFormValidator.resetValidationState();
+        profilePopup.close();
+        formValidators['person-form'].resetValidationState();
     }
 });
 profilePopup.setEventListeners();
 
 const addPlacePopup = new PopupWithForm({
     popupSelector: selectors.popupAddPlaceSelector,
-    handleFormSubmit: function (evt, value) {
+    handleFormSubmit: (evt, value) => {
         evt.preventDefault();
         places.addItem({
             item: createCard({title: value['place-name'], imgUrl: value['place-link']}),
             isAppend: false
         });
-        this.close();
-        addPlaceFormValidator.resetValidationState();
+        addPlacePopup.close();
     }
 });
 addPlacePopup.setEventListeners();
 
 function handleCardClick({src, title}) {
-    popupWithImage.setEventListeners();
     popupWithImage.open({src, title})
 }
+popupWithImage.setEventListeners();
 
 function createCard({title, imgUrl}) {
     return new Card({
@@ -77,5 +83,6 @@ elements.popupEditProfileBtn.addEventListener('click', () => {
     profilePopup.open();
 });
 elements.popupAddPlaceBtn.addEventListener('click', () => {
+    formValidators['add-place-form'].resetValidationState();
     addPlacePopup.open();
 });

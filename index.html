@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesto</title>
+<script defer src="main.js"></script><link href="main.css" rel="stylesheet"></head>
+
+<body>
+<div class="page">
+    <div class="page__container">
+        <header class="page__header header section">
+            <img class="header__logo" src="03b78ada3425e9132ff3.svg" alt="лого">
+        </header>
+
+        <main class="page__content content">
+            <section class="profile section">
+                <div class="profile__info">
+                    <img src="643a46b03f4d659592a3.jpg" alt="аватарка" class="profile__avatar">
+                    <div class="profile__description">
+                        <div class="profile__name-row">
+                            <h1 class="profile__name ellipsis-overflow">Жак-Ив Кусто</h1>
+                            <button class="profile__edit-button hover-opacity hover-opacity_type_btn"
+                                    type="button"></button>
+                        </div>
+                        <p class="profile__profession ellipsis-overflow">Исследователь океана</p>
+                    </div>
+                </div>
+                <button class="profile__add-button hover-opacity hover-opacity_type_btn"
+                        aria-label="редактирования профиля" type="button"></button>
+            </section>
+            <section class="places section">
+                <ul class="places__list">
+                </ul>
+            </section>
+
+        </main>
+
+        <footer class="page__footer footer section">
+            <p class="footer__copyright">© 2022 Mesto Russia</p>
+        </footer>
+    </div>
+
+    <div class="popup" id="person-popup">
+        <div class="popup__container">
+            <h2 class="popup__title">Редактировать профиль</h2>
+            <form class="popup__form" id="person-form" name="person-form" novalidate>
+                <label class="popup__field">
+                    <input class="popup__input" name="username" placeholder="Имя" id="username" minlength="2"
+                           maxlength="40" required>
+                    <span id="username-error" class="popup__input-error"></span>
+                </label>
+                <label class="popup__field">
+                    <input class="popup__input" name="profession" placeholder="О себе" id="profession"
+                           minlength="2" maxlength="200" required>
+                    <span id="profession-error" class="popup__input-error"></span>
+                </label>
+                <button class="popup__submit hover-opacity hover-opacity_type_btn" type="submit" aria-label="сохранить">
+                    Сохранить
+                </button>
+            </form>
+            <button class="popup__close hover-opacity hover-opacity_type_btn" type="button"
+                    aria-label="закрыть"></button>
+        </div>
+    </div>
+
+    <div class="popup" id="add-place-popup">
+        <div class="popup__container">
+            <h2 class="popup__title">Новое место</h2>
+            <form class="popup__form" id="add-place-form" name="add-place-form" novalidate>
+                <label class="popup__field">
+                    <input class="popup__input" name="place-name" placeholder="Название" id="place-name" minlength="2"
+                           maxlength="30" required>
+                    <span id="place-name-error" class="popup__input-error"></span>
+                </label>
+                <label class="popup__field">
+                    <input class="popup__input" name="place-link" placeholder="Ссылка на картинку" id="place-link"
+                           type="url" required>
+                    <span id="place-link-error" class="popup__input-error"></span>
+                </label>
+                <button class="popup__submit hover-opacity hover-opacity_type_btn popup__submit_inactive"
+                        id="submit-add-place" type="submit" aria-label="создать" disabled>
+                    Создать
+                </button>
+            </form>
+            <button class="popup__close hover-opacity hover-opacity_type_btn" type="button"
+                    aria-label="закрыть"></button>
+        </div>
+    </div>
+
+    <div class="popup" id="full-image-popup">
+        <div class="popup__container popup__container_size_full">
+            <img src="#" alt="картинка места" class="popup__image">
+            <p class="popup__bottom-label"></p>
+            <button class="popup__close hover-opacity hover-opacity_type_btn" type="button"
+                    aria-label="закрыть"></button>
+        </div>
+    </div>
+
+    <template id="place-template">
+        <li class="places__place place">
+            <button class="place__delete-button hover-opacity hover-opacity_type_icon" type="button"></button>
+            <img src="#" alt="фотография места" class="place__photo hover-opacity hover-opacity_type_icon">
+            <div class="place__description ellipsis-overflow">
+                <h2 class="place__name ellipsis-overflow"></h2>
+                <button class="place__like-button like-button hover-opacity hover-opacity_type_icon"
+                        type="button"></button>
+            </div>
+        </li>
+    </template>
+</div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+.popup__fields-container {
+    margin-top: 42px;
+}
+
+@media screen and (max-width: 780px) {
+    .popup__submit {
+        margin-top: 60px;
+    }
+}

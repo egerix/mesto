@@ -8,6 +8,13 @@ const validationConfig = {
     inputErrorVisibleClass: 'popup__input-error_visible',
 }
 
+const apiConfig = {
+    groupId: 'cohort-57',
+    token: '9350d1ca-c33a-4fd7-b89a-718e1860d7fb',
+    url: 'https://nomoreparties.co'
+}
+
 export {
-    validationConfig
+    validationConfig,
+    apiConfig,
 }

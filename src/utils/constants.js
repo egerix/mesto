@@ -1,41 +1,18 @@
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
-
 const elements = {
     personForm: document.querySelector('#person-form'),
     formAddPlace: document.querySelector('#add-place-form'),
+    avatarEditProfileBtn: document.querySelector('.profile__avatar-container'),
     popupEditProfileBtn: document.querySelector('.profile__edit-button'),
     popupAddPlaceBtn: document.querySelector('.profile__add-button'),
 }
 
 const selectors = {
     popupPersonSelector: '#person-popup',
+    popupAvatarSelector: '#change-avatar-popup',
     popupAddPlaceSelector: '#add-place-popup',
     profileNameSelector: '.profile__name',
+    profileAvatarSelector: '.profile__avatar',
+    confirmDeletePopupSelector: '#confirm-delete-popup',
     popupImageSelector: '#full-image-popup',
     placeTemplateSelector: '#place-template',
     profileProfessionSelector: '.profile__profession',
@@ -44,7 +21,6 @@ const selectors = {
 
 
 export {
-    initialCards,
     elements,
     selectors,
 }

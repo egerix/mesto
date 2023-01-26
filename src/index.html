@@ -17,7 +17,9 @@
         <main class="page__content content">
             <section class="profile section">
                 <div class="profile__info">
-                    <img src="<%=require('./images/avatar.jpg')%>" alt="аватарка" class="profile__avatar">
+                    <div class="profile__avatar-container">
+                        <img src="<%=require('./images/avatar.jpg')%>" alt="аватарка" class="profile__avatar">
+                    </div>
                     <div class="profile__description">
                         <div class="profile__name-row">
                             <h1 class="profile__name ellipsis-overflow">Жак-Ив Кусто</h1>
@@ -46,16 +48,18 @@
         <div class="popup__container">
             <h2 class="popup__title">Редактировать профиль</h2>
             <form class="popup__form" id="person-form" name="person-form" novalidate>
-                <label class="popup__field">
-                    <input class="popup__input" name="username" placeholder="Имя" id="username" minlength="2"
-                           maxlength="40" required>
-                    <span id="username-error" class="popup__input-error"></span>
-                </label>
-                <label class="popup__field">
-                    <input class="popup__input" name="profession" placeholder="О себе" id="profession"
-                           minlength="2" maxlength="200" required>
-                    <span id="profession-error" class="popup__input-error"></span>
-                </label>
+                <div class="popup__fields-container">
+                    <label class="popup__field">
+                        <input class="popup__input" name="username" placeholder="Имя" id="username" minlength="2"
+                               maxlength="40" required>
+                        <span id="username-error" class="popup__input-error"></span>
+                    </label>
+                    <label class="popup__field">
+                        <input class="popup__input" name="profession" placeholder="О себе" id="profession"
+                               minlength="2" maxlength="200" required>
+                        <span id="profession-error" class="popup__input-error"></span>
+                    </label>
+                </div>
                 <button class="popup__submit hover-opacity hover-opacity_type_btn" type="submit" aria-label="сохранить">
                     Сохранить
                 </button>
@@ -69,20 +73,55 @@
         <div class="popup__container">
             <h2 class="popup__title">Новое место</h2>
             <form class="popup__form" id="add-place-form" name="add-place-form" novalidate>
-                <label class="popup__field">
-                    <input class="popup__input" name="place-name" placeholder="Название" id="place-name" minlength="2"
-                           maxlength="30" required>
-                    <span id="place-name-error" class="popup__input-error"></span>
-                </label>
-                <label class="popup__field">
-                    <input class="popup__input" name="place-link" placeholder="Ссылка на картинку" id="place-link"
-                           type="url" required>
-                    <span id="place-link-error" class="popup__input-error"></span>
-                </label>
+                <div class="popup__fields-container">
+                    <label class="popup__field">
+                        <input class="popup__input" name="place-name" placeholder="Название" id="place-name"
+                               minlength="2"
+                               maxlength="30" required>
+                        <span id="place-name-error" class="popup__input-error"></span>
+                    </label>
+                    <label class="popup__field">
+                        <input class="popup__input" name="place-link" placeholder="Ссылка на картинку" id="place-link"
+                               type="url" required>
+                        <span id="place-link-error" class="popup__input-error"></span>
+                    </label>
+                </div>
                 <button class="popup__submit hover-opacity hover-opacity_type_btn popup__submit_inactive"
                         id="submit-add-place" type="submit" aria-label="создать" disabled>
                     Создать
                 </button>
+            </form>
+            <button class="popup__close hover-opacity hover-opacity_type_btn" type="button"
+                    aria-label="закрыть"></button>
+        </div>
+    </div>
+
+    <div class="popup" id="change-avatar-popup">
+        <div class="popup__container">
+            <h2 class="popup__title">Обновить аватар</h2>
+            <form class="popup__form" id="change-avatar-form" name="change-avatar-form" novalidate>
+                <div class="popup__fields-container">
+                    <label class="popup__field">
+                        <input class="popup__input" name="place-link" placeholder="Ссылка на картинку" id="avatar-link"
+                               type="url" required>
+                        <span id="avatar-link-error" class="popup__input-error"></span>
+                    </label>
+                </div>
+                <button class="popup__submit hover-opacity hover-opacity_type_btn popup__submit_inactive"
+                        id="submit-change-avatar" type="submit" aria-label="сохранить" disabled>
+                    Сохранить
+                </button>
+            </form>
+            <button class="popup__close hover-opacity hover-opacity_type_btn" type="button"
+                    aria-label="закрыть"></button>
+        </div>
+    </div>
+
+    <div class="popup" id="confirm-delete-popup">
+        <div class="popup__container">
+            <h2 class="popup__title">Вы уверены?</h2>
+            <button class="popup__submit hover-opacity hover-opacity_type_btn" aria-label="да">Да
+            </button>
             </form>
             <button class="popup__close hover-opacity hover-opacity_type_btn" type="button"
                     aria-label="закрыть"></button>
@@ -104,8 +143,12 @@
             <img src="#" alt="фотография места" class="place__photo hover-opacity hover-opacity_type_icon">
             <div class="place__description ellipsis-overflow">
                 <h2 class="place__name ellipsis-overflow"></h2>
-                <button class="place__like-button like-button hover-opacity hover-opacity_type_icon"
-                        type="button"></button>
+                <div class="place__like-container">
+                    <button class="place__like-button like-button hover-opacity hover-opacity_type_icon"
+                            type="button"></button>
+                    <span class="place__like-counter"></span>
+                </div>
+
             </div>
         </li>
     </template>

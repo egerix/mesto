@@ -26,7 +26,23 @@ const enableValidation = (config) => {
 enableValidation(validationConfig);
 
 const popupWithImage = new PopupWithImage(selectors.popupImageSelector);
-const places = new Section(selectors.placesListSelector)
+const places = new Section({
+    containerSelector: selectors.placesListSelector,
+    renderer: (cardData) => {
+        const userId = userInfo.getUserInfo().id;
+        places.addItem({
+            item: createCard({
+                id: cardData._id,
+                isRemovable: cardData.owner._id === userId,
+                title: cardData.name,
+                imgUrl: cardData.link,
+                likes: cardData.likes,
+                isLiked: cardData.likes.find((like) => userId === like._id)
+            }),
+            isAppend: true
+        });
+    }
+});
 
 const userInfo = new UserInfo({
     nameSelector: selectors.profileNameSelector,
@@ -43,9 +59,11 @@ const profilePopup = new PopupWithForm({
             .then(data => {
                 userInfo.setUserInfo({id: data._id, username: data.name, profession: data.about});
                 profilePopup.close();
-                formValidators['person-form'].resetValidationState();
             })
-            .finally(()=> {
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
                 profilePopup.hideLoading();
             })
     }
@@ -60,9 +78,11 @@ const profileAvatarPopup = new PopupWithForm({
             .then(data => {
                 userInfo.setUserAvatar(data.avatar);
                 profileAvatarPopup.close();
-                formValidators['change-avatar-form'].resetValidationState();
             })
-            .finally(()=> {
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
                 profileAvatarPopup.hideLoading();
             })
     }
@@ -71,12 +91,16 @@ const profileAvatarPopup = new PopupWithForm({
 const confirmDeletePopup = new ConfirmPopup({
     popupSelector: selectors.confirmDeletePopupSelector,
     confirmHandler: (card) => {
-        api.removeCard(card.getId()).then(
-            () => {
-                card.remove();
-                confirmDeletePopup.close();
-            }
-        );
+        api.removeCard(card.getId())
+            .then(
+                () => {
+                    card.remove();
+                    confirmDeletePopup.close();
+                }
+            )
+            .catch((err) => {
+                console.log(err);
+            });
     }
 });
 
@@ -99,7 +123,10 @@ const addPlacePopup = new PopupWithForm({
                 });
                 addPlacePopup.close();
             })
-            .finally(()=> {
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
                 addPlacePopup.hideLoading();
             })
     }
@@ -142,7 +169,9 @@ const handleLikeClick = function (card) {
             card.setLikesCount(data.likes.length)
             card.toggleLike()
         }
-    )
+    ).catch((err) => {
+        console.log(err);
+    })
 }
 
 elements.popupEditProfileBtn.addEventListener('click', () => {
@@ -158,31 +187,22 @@ elements.avatarEditProfileBtn.addEventListener('click', () => {
     profileAvatarPopup.setInputValues({
         "place-link": userInfo.getUserAvatar()
     })
-    formValidators['change-avatar-form'].resetValidationState();
     profileAvatarPopup.open();
 });
 
-Promise.all([api.getUserInfo(), api.getCards()]).then(
-    ([userData, cardsData]) => {
-        userInfo.setUserInfo({
-                id: userData._id,
-                username: userData.name,
-                profession: userData.about,
-            }
-        );
-        userInfo.setUserAvatar(userData.avatar);
-        cardsData.forEach(card => places.addItem(
-            {
-                item: createCard({
-                    id: card._id,
-                    isRemovable: userData._id === card.owner._id,
-                    title: card.name,
-                    imgUrl: card.link,
-                    likes: card.likes,
-                    isLiked: card.likes.find((like) => userData._id === like._id)
-                }),
-                isAppend: true
-            }
-        ));
-    }
-)
+Promise.all([api.getUserInfo(), api.getCards()])
+    .then(
+        ([userData, cardsData]) => {
+            userInfo.setUserInfo({
+                    id: userData._id,
+                    username: userData.name,
+                    profession: userData.about,
+                }
+            );
+            userInfo.setUserAvatar(userData.avatar);
+            places.renderItems(cardsData);
+        }
+    )
+    .catch((err) => {
+        console.log(err);
+    })

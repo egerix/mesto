@@ -27,10 +27,7 @@ export default class Api {
     _makeRequest(path, config) {
         const configWithAuth = this._getConfigWithAuth(config)
         return fetch(`${this._url}/v1/${this._groupId}/${path}`, configWithAuth)
-            .then(this._handleResponse)
-            .catch((err) => {
-                console.log(err);
-            });
+            .then(this._handleResponse);
     }
 
     getUserInfo() {
